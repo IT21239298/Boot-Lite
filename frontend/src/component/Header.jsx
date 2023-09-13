@@ -38,12 +38,21 @@ const Header = () => {
             <div className="text-3xl cursor-pointer" onClick={handleShowMenu}>
               <BiUserCircle />
             </div>
+
             {showMenu && (
               <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <p className="whitespace-nowrap cursor-pointer px-2">
+                <Link
+                  to={"newproduct"}
+                  className="whitespace-nowrap cursor-pointer px-2"
+                >
                   New product
-                </p>
-                <p className="whitespace-nowrap cursor-pointer px-2">Login</p>
+                </Link>
+                <Link
+                  to={"login"}
+                  className="whitespace-nowrap cursor-pointer px-2"
+                >
+                  Login
+                </Link>
               </div>
             )}
           </div>
