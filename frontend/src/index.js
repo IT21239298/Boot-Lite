@@ -9,9 +9,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import Home from "./page/Home";
+import Menu from "./page/Menu";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(<Route path="/" element={<App />}></Route>)
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
+      <Route path="menu" element={<Menu />} />
+    </Route>
+  )
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
