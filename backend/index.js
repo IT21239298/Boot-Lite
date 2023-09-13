@@ -74,6 +74,7 @@ app.post("/login", (req, res) => {
         data: dataSend,
       });
     } else {
+      //cheque email
       res.send({
         message: "Email is not available, please sign up",
         alert: false,

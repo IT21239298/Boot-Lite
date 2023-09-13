@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import logo from "../assest/logo.png";
 import { Link } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { BsFillCartCheckFill } from "react-icons/bs";
+import { logoutRedux } from "../redux/userSlice";
+import { toast } from "react-hot-toast";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   //if click the profile button show login and menu
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
+  };
+  const handleLogout = () => {
+    dispatch(logoutRedux());
+    toast("Logout successfully");
   };
 
   return (
@@ -34,9 +43,13 @@ const Header = () => {
               0
             </div>
           </div>
-          <div className="text-2xl text-slate-600">
-            <div className="text-3xl cursor-pointer" onClick={handleShowMenu}>
-              <BiUserCircle />
+          <div className="text-2xl text-slate-600" onClick={handleShowMenu}>
+            <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md">
+              {userData.image ? (
+                <img src={userData.image} className="h-full w-full" />
+              ) : (
+                <BiUserCircle />
+              )}
             </div>
 
             {showMenu && (
@@ -47,12 +60,21 @@ const Header = () => {
                 >
                   New product
                 </Link>
-                <Link
-                  to={"login"}
-                  className="whitespace-nowrap cursor-pointer px-2"
-                >
-                  Login
-                </Link>
+                {userData.image ? (
+                  <p
+                    className="cursor-pointer text-white px-2 bg-red-500 px-1 rounded"
+                    onClick={handleLogout}
+                  >
+                    Logout ({userData.firstName}){" "}
+                  </p>
+                ) : (
+                  <Link
+                    to={"login"}
+                    className="whitespace-nowrap cursor-pointer px-2"
+                  >
+                    Login
+                  </Link>
+                )}
               </div>
             )}
           </div>
