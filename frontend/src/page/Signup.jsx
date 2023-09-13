@@ -34,9 +34,9 @@ const Signup = () => {
       };
     });
   };
-  {
-    /*check paword and confirm password equal and validation */
-  }
+
+  /*check paword and confirm password equal and validation */
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = data;
