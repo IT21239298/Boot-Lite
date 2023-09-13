@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import loginSignupImage from "../assest/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [data, setData] = useState({
@@ -43,12 +44,17 @@ const Signup = () => {
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
         alert("Successfull");
+        navigate("/login");
       } else {
         alert("password and confirm password not equal");
       }
     } else {
       alert("Please Enter required fields");
     }
+  };
+
+  const handleUploadProfileImage = (e) => {
+    console.log(e.target.files[0]);
   };
 
   return (
@@ -58,6 +64,19 @@ const Signup = () => {
           {/*<h1>Sign Up</h1>*/}
           <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative ">
             <img src={loginSignupImage} className="w-full" />
+
+            <label htmlFor="profileImage">
+              <div className="absolute bottom-0 h-1/3  bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
+                <p className="text-sm p-1 text-white">Upload</p>
+              </div>
+              <input
+                type={"file"}
+                id="profileImage"
+                accept="image/*"
+                className="hidden"
+                onChange={handleUploadProfileImage}
+              />
+            </label>
           </div>
           <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
             <label htmlFor="firstName">First Name</label>
