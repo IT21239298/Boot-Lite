@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import homeimg1 from "../assest/homeimg1.png";
 import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
+import FilterProduct from "../component/FilterProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
@@ -29,6 +30,27 @@ const Home = () => {
     slideProductRef.current.scrollLeft -= 200;
   };
 
+  //category product
+  const brandList = [...new Set(productData.map((el) => el.brand))];
+  console.log(brandList);
+
+  //dislay filter branddetails
+
+  const [filterby, setFilterBy] = useState("");
+  const [dataFilter, setDataFilter] = useState([]);
+
+  useEffect(() => {
+    setDataFilter(productData);
+  }, [productData]);
+
+  const handleFiterBrand = (brand) => {
+    const filter = productData.filter(
+      (el) => el.brand.toLowerCase() === brand.toLowerCase()
+    );
+    setDataFilter(() => {
+      return [...filter];
+    });
+  };
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -110,6 +132,36 @@ const Home = () => {
             : loadingArrayFeature.map((el) => (
                 <CardFeature loading="Loading..." />
               ))}
+        </div>
+      </div>
+      <div className="my-5">
+        <h2 className="font-bold text-2xl text-slate-800 mb-4">
+          {" "}
+          Branded Product
+        </h2>
+        <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+          {brandList[0] &&
+            brandList.map((el) => {
+              return (
+                <FilterProduct
+                  brand={el}
+                  onClick={() => handleFiterBrand(el)}
+                />
+              );
+            })}
+        </div>
+        <div className="flex flex-wrap justify-center gap-4 my-4">
+          {dataFilter.map((el) => {
+            return (
+              <CardFeature
+                key={el._id}
+                image={el.image}
+                model={el.model}
+                brand={el.brand}
+                price={el.price}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
