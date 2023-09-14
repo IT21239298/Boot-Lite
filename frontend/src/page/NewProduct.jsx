@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
+import { toast } from "react-hot-toast";
 
 const NewProduct = () => {
   const [data, setData] = useState({
@@ -19,8 +20,40 @@ const NewProduct = () => {
       };
     });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log(data);
+
+    const { model, brand, image, price } = data;
+
+    if (model && brand && image && price) {
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMIN}/uploadProduct`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const fetchRes = await fetchData.json();
+
+      console.log(fetchRes);
+      toast(fetchRes.message);
+
+      setData(() => {
+        return {
+          model: "",
+          brand: "",
+          image: "",
+          price: "",
+        };
+      });
+    } else {
+      toast("Enter required Fields");
+    }
   };
   const uploadImage = async (e) => {
     const data = await ImagetoBase64(e.target.files[0]);
@@ -46,6 +79,7 @@ const NewProduct = () => {
           name="model"
           className="bg-slate-200 p-1 my-1"
           onChange={handleOnChange}
+          value={data.model}
         />
 
         <label htmlFor="category">Brand</label>
@@ -54,17 +88,18 @@ const NewProduct = () => {
           id="brand"
           name="brand"
           onChange={handleOnChange}
+          value={data.brand}
         >
           <option value={"other"}>Select Brand</option>
-          <option value={"rice"}>Nike</option>
-          <option value={"cake"}>Puma</option>
-          <option value={"fruits"}>Adidas</option>
-          <option value={"vegetable"}>Asics</option>
-          <option value={"icream"}>Lotto</option>
-          <option value={"dosa"}>Mizuno</option>
-          <option value={"pizza"}>New Balance</option>
-          <option value={"burger"}>Umbro</option>
-          <option value={"panner"}>Under Armour</option>
+          <option value={"nike"}>Nike</option>
+          <option value={"puma"}>Puma</option>
+          <option value={"adida"}>Adidas</option>
+          <option value={"asics"}>Asics</option>
+          <option value={"lotto"}>Lotto</option>
+          <option value={"mizuno"}>Mizuno</option>
+          <option value={"new balance"}>New Balance</option>
+          <option value={"umbro"}>Umbro</option>
+          <option value={"undr armour"}>Under Armour</option>
         </select>
 
         <label htmlFor="image">
@@ -95,6 +130,7 @@ const NewProduct = () => {
           className="bg-slate-200 p-1 my-1"
           name="price"
           onChange={handleOnChange}
+          value={data.price}
         />
 
         <button className="bg-blue-500 hover:bg-blue-600 text-white text-lg font-medium my-2 drop-shadow">
