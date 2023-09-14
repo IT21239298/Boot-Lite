@@ -2,11 +2,17 @@ import React from "react";
 import homeimg1 from "../assest/homeimg1.png";
 import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
+import CardFeature from "../component/CardFeature";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
 
-  const homeProductCartList = productData.slice(0, 4);
+  const homeProductCartList = productData.slice(1, 5);
+  const homeProductCartListNike = productData.filter(
+    (el) => el.brand === "nike",
+    []
+  );
+  console.log(homeProductCartListNike);
 
   return (
     <div className="p-2 md:p-4">
@@ -31,10 +37,25 @@ const Home = () => {
             Order Now
           </button>
         </div>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 flex flex-wrap gap-5 p-4 justify-center">
           {homeProductCartList.map((el) => {
-            return <HomeCard />;
+            return (
+              <HomeCard
+                key={el._id}
+                id={el._id}
+                image={el.image}
+                model={el.model}
+                price={el.price}
+                brand={el.brand}
+              />
+            );
           })}
+        </div>
+      </div>
+      <div className="">
+        <h2 className="font-bold text-2xl text-slate-800 mb-4">Nike</h2>
+        <div className="">
+          <CardFeature />
         </div>
       </div>
     </div>
