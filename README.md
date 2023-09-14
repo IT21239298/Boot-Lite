@@ -9,6 +9,10 @@
 2. Change into the project directory:
 3. Install the required dependencies using npm (Node Package Manager):
 
-## Step 3: Start the development server
+## Step 3: Start the front-end
 
 ### `npm start`
+
+## Step 3: Start the Back-end
+
+### `npm run dev`
