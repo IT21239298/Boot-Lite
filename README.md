@@ -16,3 +16,8 @@
 ## Step 3: Start the Back-end
 
 ### `npm run dev`
+
+##Node:- If the want to add new product 
+login  in using ,
+email = sathsarasithum@gmail.com
+password = 1234
