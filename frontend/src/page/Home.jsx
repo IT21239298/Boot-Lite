@@ -4,7 +4,6 @@ import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
-import FilterProduct from "../component/FilterProduct";
 import AllProduct from "../component/AllProduct";
 
 const Home = () => {
@@ -37,14 +36,14 @@ const Home = () => {
         <div className="md:w-1/2">
           <div className="flex gap-3 bg-slate-300 w-36 px-1 items-center rounded-full">
             <p className="text-sm font-medium text-slate-900">Football </p>
-            <img src={homeimg1} className="h-8" />
+            <img src={homeimg1} className="h-8" alt="" />
           </div>
           <h2 className="text-4xl md:text-7xl font-bold py-3">
-            Best of the futer in
-            <span className="text-blue-600 text-"> Your goal</span>
+            Look For
+            <span className="text-blue-600 text-"> Your GOAL</span>
           </h2>
           <p className="py-3 text-base ">
-            "Welcome to your premier destination for purchasing football boots
+            "Welcome to premier destination for purchasing football boots
             online! Our website offers a vast selection of high-quality football
             boots from the world's top 100 brands, ensuring that you'll find the
             perfect pair to elevate your game. Whether you're an aspiring
@@ -115,7 +114,7 @@ const Home = () => {
               ))}
         </div>
       </div>
-      <AllProduct heading={"Your Product"} />
+      <AllProduct heading={""} />
     </div>
   );
 };

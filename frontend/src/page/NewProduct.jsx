@@ -69,6 +69,9 @@ const NewProduct = () => {
 
   return (
     <div className="p-4">
+      <h2 className="font-bold text-2xl text-slate-800 mb-4 text-center">
+        Add New Product
+      </h2>
       <form
         className="m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white"
         onSubmit={handleSubmit}
@@ -106,7 +109,7 @@ const NewProduct = () => {
           Image
           <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
             {data.image ? (
-              <img src={data.image} className="h-full" />
+              <img src={data.image} className="h-full" alt="" />
             ) : (
               <span className="text-5xl">
                 <BsCloudUpload />

@@ -72,7 +72,7 @@ const Login = () => {
           Login You Account
         </h2>
         <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
-          <img src={loginSignupImage} className="w-full" />
+          <img src={loginSignupImage} className="w-full" alt="addimage" />
         </div>
 
         <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>

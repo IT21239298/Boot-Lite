@@ -17,15 +17,16 @@ const Menu = () => {
   };
   return (
     <div className="p-2 md:p-4">
-      <div className="w-30  max-w-4xl m-auto md:flex bg-white">
+      <div className="  w-30  max-w-4xl m-auto md:flex bg-white">
         <div className="max-w-sm  overflow-hidden w-full p-5">
           <img
             src={productDisplay.image}
             className="hover:scale-105 transition-all h-full"
+            alt=""
           />
         </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="font-semibold text-slate-600  capitalize text-2xl md:text-4xl">
+        <div className="p-16  flex flex-col gap-1">
+          <h3 className=" font-semibold text-slate-600  capitalize text-2xl md:text-4xl">
             {productDisplay.brand}
           </h3>
           <p className=" text-slate-500  font-medium text-2xl">
@@ -37,7 +38,7 @@ const Menu = () => {
           </p>
           <div className="flex gap-3">
             <button
-              className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
+              className="bg-blue-500 py-1 mt-2 rounded hover:bg-blue-600 min-w-[100px]"
               onClick={handleAddCartProduct}
             >
               Add Cart
@@ -45,7 +46,7 @@ const Menu = () => {
           </div>
         </div>
       </div>
-      <AllProduct heading={"Your Product"} />
+      <AllProduct heading={""} />
     </div>
   );
 };

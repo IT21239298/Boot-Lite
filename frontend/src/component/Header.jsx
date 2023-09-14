@@ -31,14 +31,13 @@ const Header = () => {
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
           <div className="h-10">
-            <img src={logo} className="h-full" />
+            <img src={logo} className="h-full" alt="logo" />
           </div>
         </Link>
 
         <div className="flex items-center gap-4 md:gap-7">
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
             <Link to={"/"}>Home</Link>
-            <Link to={"menu/65029e65b463bbfe76eda1d5"}>Menu</Link>
           </nav>
           <div className="text-2xl text-slate-600 relative">
             <Link to={"cart"}>
@@ -51,7 +50,11 @@ const Header = () => {
           <div className="text-2xl text-slate-600" onClick={handleShowMenu}>
             <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md">
               {userData.image ? (
-                <img src={userData.image} className="h-full w-full" />
+                <img
+                  src={userData.image}
+                  className="h-full w-full"
+                  alt="getimg"
+                />
               ) : (
                 <BiUserCircle />
               )}
