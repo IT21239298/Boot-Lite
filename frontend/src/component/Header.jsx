@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
+  console.log(userData.email);
   const dispatch = useDispatch();
 
   //if click the profile button show login and menu
@@ -54,12 +55,14 @@ const Header = () => {
 
             {showMenu && (
               <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                <Link
-                  to={"newproduct"}
-                  className="whitespace-nowrap cursor-pointer px-2"
-                >
-                  New product
-                </Link>
+                {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
+                  <Link
+                    to={"newproduct"}
+                    className="whitespace-nowrap cursor-pointer px-2"
+                  >
+                    New product
+                  </Link>
+                )}
                 {userData.image ? (
                   <p
                     className="cursor-pointer text-white px-2 bg-red-500 px-1 rounded"
