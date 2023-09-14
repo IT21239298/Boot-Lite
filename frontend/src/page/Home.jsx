@@ -3,6 +3,7 @@ import homeimg1 from "../assest/homeimg1.png";
 import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeature from "../component/CardFeature";
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
@@ -36,7 +37,7 @@ const Home = () => {
             and scrambled it to make a type specimen book. It has survived not
             only five centuries
           </p>
-          <button className="font-bold bg-blue-500 text-slate-200 px-2 py-1 rounded-md">
+          <button className="font-bold bg-red-500 text-slate-200 px-2 py-1 rounded-md">
             Order Now
           </button>
         </div>
@@ -59,9 +60,20 @@ const Home = () => {
               })}
         </div>
       </div>
+
       <div className="">
-        <h2 className="font-bold text-2xl text-slate-800 mb-4">Nike</h2>
-        <div className="">
+        <div className="flex w-full items-center">
+          <h2 className="font-bold text-2xl text-slate-800 mb-4">Nike</h2>
+          <div className="ml-auto flex gap-4">
+            <button className="bg-slate-300 hover:bg-slate-400 text-lg  p-1 rounded">
+              <GrPrevious />
+            </button>
+            <button className="bg-slate-300 hover:bg-slate-400 text-lg p-1 rounded ">
+              <GrNext />
+            </button>
+          </div>
+        </div>
+        <div className="flex gap-5 overflow-scroll">
           {homeProductCartListNike.map((el) => {
             return (
               <CardFeature
