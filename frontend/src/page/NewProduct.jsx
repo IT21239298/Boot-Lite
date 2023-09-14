@@ -90,16 +90,16 @@ const NewProduct = () => {
           onChange={handleOnChange}
           value={data.brand}
         >
-          <option value={"other"}>Select Brand</option>
-          <option value={"nike"}>Nike</option>
-          <option value={"puma"}>Puma</option>
-          <option value={"adida"}>Adidas</option>
-          <option value={"asics"}>Asics</option>
-          <option value={"lotto"}>Lotto</option>
-          <option value={"mizuno"}>Mizuno</option>
-          <option value={"new balance"}>New Balance</option>
-          <option value={"umbro"}>Umbro</option>
-          <option value={"undr armour"}>Under Armour</option>
+          <option value={"Other"}>Select Brand</option>
+          <option value={"Nike"}>Nike</option>
+          <option value={"Puma"}>Puma</option>
+          <option value={"Adidas"}>Adidas</option>
+          <option value={"Asics"}>Asics</option>
+          <option value={"Lotto"}>Lotto</option>
+          <option value={"Mizuno"}>Mizuno</option>
+          <option value={"New balance"}>New Balance</option>
+          <option value={"Umbro"}>Umbro</option>
+          <option value={"Under armour"}>Under Armour</option>
         </select>
 
         <label htmlFor="image">

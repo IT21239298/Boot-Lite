@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import homeimg1 from "../assest/homeimg1.png";
 import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ const Home = () => {
   const homeProductCartList = productData.slice(1, 5);
   //select brand
   const homeProductCartListNike = productData.filter(
-    (el) => el.brand === "nike",
+    (el) => el.brand === "Nike",
     []
   );
   console.log(homeProductCartListNike);
@@ -44,15 +44,16 @@ const Home = () => {
             <span className="text-blue-600 text-"> Your goal</span>
           </h2>
           <p className="py-3 text-base ">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries
+            "Welcome to your premier destination for purchasing football boots
+            online! Our website offers a vast selection of high-quality football
+            boots from the world's top 100 brands, ensuring that you'll find the
+            perfect pair to elevate your game. Whether you're an aspiring
+            professional, a dedicated amateur, or just enjoy a casual kickabout
+            with friends, we have football boots to suit all skill levels and
+            preferences. Browse our extensive catalog and join a community of
+            football enthusiasts who trust us for their footwear needs. Elevate
+            your game today!"
           </p>
-          <button className="font-bold bg-red-500 text-slate-200 px-2 py-1 rounded-md">
-            Order Now
-          </button>
         </div>
         <div className="md:w-1/2 flex flex-wrap gap-5 p-4 justify-center">
           {homeProductCartList[0]
