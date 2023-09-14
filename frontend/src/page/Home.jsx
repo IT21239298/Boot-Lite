@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import FilterProduct from "../component/FilterProduct";
+import AllProduct from "../component/AllProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
@@ -30,27 +31,6 @@ const Home = () => {
     slideProductRef.current.scrollLeft -= 200;
   };
 
-  //category product
-  const brandList = [...new Set(productData.map((el) => el.brand))];
-  console.log(brandList);
-
-  //dislay filter branddetails
-
-  const [filterby, setFilterBy] = useState("");
-  const [dataFilter, setDataFilter] = useState([]);
-
-  useEffect(() => {
-    setDataFilter(productData);
-  }, [productData]);
-
-  const handleFiterBrand = (brand) => {
-    const filter = productData.filter(
-      (el) => el.brand.toLowerCase() === brand.toLowerCase()
-    );
-    setDataFilter(() => {
-      return [...filter];
-    });
-  };
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -89,7 +69,7 @@ const Home = () => {
                 );
               })
             : loadingArray.map((el, index) => {
-                return <HomeCard key={index} loading={"Loading..!"} />;
+                return <HomeCard key={index} loading="Loading..!" />;
               })}
         </div>
       </div>
@@ -129,41 +109,12 @@ const Home = () => {
                   />
                 );
               })
-            : loadingArrayFeature.map((el) => (
-                <CardFeature loading="Loading..." />
+            : loadingArrayFeature.map((el, index) => (
+                <CardFeature loading="Loading..." key={index} />
               ))}
         </div>
       </div>
-      <div className="my-5">
-        <h2 className="font-bold text-2xl text-slate-800 mb-4">
-          {" "}
-          Branded Product
-        </h2>
-        <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
-          {brandList[0] &&
-            brandList.map((el) => {
-              return (
-                <FilterProduct
-                  brand={el}
-                  onClick={() => handleFiterBrand(el)}
-                />
-              );
-            })}
-        </div>
-        <div className="flex flex-wrap justify-center gap-4 my-4">
-          {dataFilter.map((el) => {
-            return (
-              <CardFeature
-                key={el._id}
-                image={el.image}
-                model={el.model}
-                brand={el.brand}
-                price={el.price}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <AllProduct heading={"Your Product"} />
     </div>
   );
 };
