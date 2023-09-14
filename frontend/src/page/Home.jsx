@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import homeimg1 from "../assest/homeimg1.png";
 import HomeCard from "../component/HomeCard";
 import { useSelector } from "react-redux";
@@ -18,6 +18,17 @@ const Home = () => {
 
   //loading category
   const loadingArray = new Array(4).fill(null);
+  const loadingArrayFeature = new Array(10).fill(null);
+
+  //scroling
+  const slideProductRef = useRef();
+  const nextProduct = () => {
+    slideProductRef.current.scrollLeft += 200;
+  };
+  const preveProduct = () => {
+    slideProductRef.current.scrollLeft -= 200;
+  };
+
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -65,27 +76,40 @@ const Home = () => {
         <div className="flex w-full items-center">
           <h2 className="font-bold text-2xl text-slate-800 mb-4">Nike</h2>
           <div className="ml-auto flex gap-4">
-            <button className="bg-slate-300 hover:bg-slate-400 text-lg  p-1 rounded">
+            <button
+              onClick={preveProduct}
+              className="bg-slate-300 hover:bg-slate-400 text-lg  p-1 rounded"
+            >
               <GrPrevious />
             </button>
-            <button className="bg-slate-300 hover:bg-slate-400 text-lg p-1 rounded ">
+            <button
+              onClick={nextProduct}
+              className="bg-slate-300 hover:bg-slate-400 text-lg p-1 rounded "
+            >
               <GrNext />
             </button>
           </div>
         </div>
-        <div className="flex gap-5 overflow-scroll">
-          {homeProductCartListNike.map((el) => {
-            return (
-              <CardFeature
-                key={el._id}
-                id={el._id}
-                image={el.image}
-                model={el.model}
-                price={el.price}
-                brand={el.brand}
-              />
-            );
-          })}
+        <div
+          className="flex gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all"
+          ref={slideProductRef}
+        >
+          {homeProductCartListNike[0]
+            ? homeProductCartListNike.map((el) => {
+                return (
+                  <CardFeature
+                    key={el._id}
+                    id={el._id}
+                    image={el.image}
+                    model={el.model}
+                    price={el.price}
+                    brand={el.brand}
+                  />
+                );
+              })
+            : loadingArrayFeature.map((el) => (
+                <CardFeature loading="Loading..." />
+              ))}
         </div>
       </div>
     </div>
