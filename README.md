@@ -19,5 +19,5 @@
 
 ##Node:- If the want to add new product 
 login  in using ,
-email = sathsarasithum@gmail.com
+email = sathsarasithum@gmail.com,
 password = 1234
