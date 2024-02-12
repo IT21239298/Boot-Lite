@@ -40,7 +40,7 @@ const Home = () => {
           </div>
           <h2 className="text-4xl md:text-7xl font-bold py-3">
             Look For
-            <span className="text-blue-600 text-"> Your GOAL</span>
+            <span className="text-green-700 text-"> Your GOAL</span>
           </h2>
           <p className="py-3 text-base ">
             "Welcome to premier destination for purchasing football boots

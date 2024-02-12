@@ -19,7 +19,7 @@ const Cart = () => {
   return (
     <>
       <div className="p-2 md:p-4">
-        <h2 className="text-lg md:text-2xl font-bold text-slate-600">
+        <h2 className=" text-center text-lg md:text-2xl font-bold text-slate-600">
           Your Cart Items
         </h2>
 
@@ -60,7 +60,11 @@ const Cart = () => {
         ) : (
           <>
             <div className="flex w-full justify-center items-center flex-col">
-              <img src={emptyCartImage} className="w-full max-w-sm" />
+              <img
+                src={emptyCartImage}
+                className="w-full max-w-sm"
+                style={{ marginTop: "50px" }}
+              />
               <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
             </div>
           </>
