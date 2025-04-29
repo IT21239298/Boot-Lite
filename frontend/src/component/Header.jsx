@@ -13,16 +13,20 @@ const Header = () => {
   console.log(userData.email);
   const dispatch = useDispatch();
 
-  //if click the profile button show login and menu
+  // if click the profile button show login and menu
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
   };
+  
   const handleLogout = () => {
     dispatch(logoutRedux());
     toast("Logout successfully");
   };
 
   const cartItemNumber = useSelector((state) => state.product.cartItem);
+
+  // Check if user is logged in based on email existence
+  const isLoggedIn = userData.email ? true : false;
 
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
@@ -61,7 +65,8 @@ const Header = () => {
             </div>
 
             {showMenu && (
-              <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+              <div className="absolute right-2 bg-white py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+                {/* Admin option is shown if user is admin */}
                 {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
                   <Link
                     to={"newproduct"}
@@ -70,12 +75,14 @@ const Header = () => {
                     New product
                   </Link>
                 )}
-                {userData.image ? (
+                
+                {/* Show logout if logged in, otherwise show login */}
+                {isLoggedIn ? (
                   <p
-                    className="cursor-pointer text-white px-2 bg-red-500 px-1 rounded"
+                    className="cursor-pointer text-white px-2 bg-red-500 rounded"
                     onClick={handleLogout}
                   >
-                    Logout ({userData.firstName}){" "}
+                    Logout ({userData.firstName})
                   </p>
                 ) : (
                   <Link
@@ -83,6 +90,16 @@ const Header = () => {
                     className="whitespace-nowrap cursor-pointer px-2"
                   >
                     Login
+                  </Link>
+                )}
+                
+                {/* Add signup option if not logged in */}
+                {!isLoggedIn && (
+                  <Link
+                    to={"signup"}
+                    className="whitespace-nowrap cursor-pointer px-2 mt-1"
+                  >
+                    Sign Up
                   </Link>
                 )}
               </div>
