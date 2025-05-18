@@ -1,11 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { addCartItem } from "../redux/productSlice";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem } from "../redux/cartSlice";
+import { toast } from "react-hot-toast";
 
 const CardFeature = ({ model, brand, image, price, loading, id }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.user);
+  const isLoggedIn = !!userData._id;
+
   const handleAddCartProduct = (e) => {
+    e.stopPropagation();
+    
+    if (!isLoggedIn) {
+      toast.error("Please login to add items to cart");
+      // Optional: redirect to login page
+      // navigate("/login");
+      return;
+    }
+    
     dispatch(
       addCartItem({
         _id: id,
@@ -26,26 +40,26 @@ const CardFeature = ({ model, brand, image, price, loading, id }) => {
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
             <div className="h-28 flex flex-col justify-center items-center ">
-              <img src={image} className="h-full" />
+              <img src={image} className="h-full" alt={model} />
             </div>
-            <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4">
+            <h3 className="font-semibold text-slate-600 capitalize text-lg mt-4">
               {brand}
             </h3>
-            <p className=" text-slate-500  font-medium">{model}</p>
-            <p className=" font-bold">
-              <span className="text-red-500">$</span>
+            <p className="text-slate-500 font-medium">{model}</p>
+            <p className="font-bold">
+              <span className="text-red-500">₹</span>
               <span>{price}</span>
             </p>
           </Link>
           <button
-            className="bg-blue-500 py-1 mt-2 rounded hover:bg-blue-600 w-full"
+            className="bg-blue-500 py-1 mt-2 rounded hover:bg-blue-600 w-full text-white"
             onClick={handleAddCartProduct}
           >
             Add Cart
           </button>
         </>
       ) : (
-        <div className="flex justify-center  text-red-500 items-center h-full">
+        <div className="flex justify-center text-red-500 items-center h-full">
           <p>{loading}</p>
         </div>
       )}

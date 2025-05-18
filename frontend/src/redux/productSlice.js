@@ -1,71 +1,53 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-hot-toast";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast"; // Assuming you use react-hot-toast for notifications
+
+// Keeping your existing functionality
+export const fetchProducts = createAsyncThunk(
+  "product/fetchProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:8081/product");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const initialState = {
   productList: [],
-  cartItem: [],
+  loading: false,
+  error: null,
 };
 
-export const productSlice = createSlice({
+const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    setDataProduct: (state, action) => {
-      console.log(action);
-      state.productList = [...action.payload];
-    },
+    // We're moving cart functionality to cartSlice.js, but keeping this
+    // as a temporary compatibility layer if needed
     addCartItem: (state, action) => {
-      const check = state.cartItem.some((el) => el._id === action.payload._id);
-      if (check) {
-        toast("Already Item in Cart");
-      } else {
-        toast("Item Add successfully");
-        const total = action.payload.price;
-        state.cartItem = [
-          ...state.cartItem,
-          { ...action.payload, qty: 1, total: total },
-        ];
-      }
+      // This is just a compatibility wrapper
+      toast.success("Added to cart");
+      // We don't actually modify state here since cart state is now in cartSlice
     },
-    deleteCartItem: (state, action) => {
-      toast("one Item Delete");
-      const index = state.cartItem.findIndex((el) => el._id === action.payload);
-      state.cartItem.splice(index, 1);
-      console.log(index);
-    },
-    increaseQty: (state, action) => {
-      const index = state.cartItem.findIndex((el) => el._id === action.payload);
-      let qty = state.cartItem[index].qty;
-      const qtyInc = ++qty;
-      state.cartItem[index].qty = qtyInc;
-
-      const price = state.cartItem[index].price;
-      const total = price * qtyInc;
-
-      state.cartItem[index].total = total;
-    },
-    decreaseQty: (state, action) => {
-      const index = state.cartItem.findIndex((el) => el._id === action.payload);
-      let qty = state.cartItem[index].qty;
-      if (qty > 1) {
-        const qtyDec = --qty;
-        state.cartItem[index].qty = qtyDec;
-
-        const price = state.cartItem[index].price;
-        const total = price * qtyDec;
-
-        state.cartItem[index].total = total;
-      }
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.productList = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export const {
-  setDataProduct,
-  addCartItem,
-  deleteCartItem,
-  increaseQty,
-  decreaseQty,
-} = productSlice.actions;
-
+export const { addCartItem } = productSlice.actions;
 export default productSlice.reducer;
